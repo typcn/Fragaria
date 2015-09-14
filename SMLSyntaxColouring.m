@@ -268,7 +268,7 @@ NSString *SMLSyntaxDefinitionIncludeInKeywordEndCharacterSet = @"includeInKeywor
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"ColoursChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"ColoursChanged"]) {
 		[self applyColourDefaults];
 		[self pageRecolour];
 		if ([[SMLDefaults valueForKey:MGSFragariaPrefsHighlightCurrentLine] boolValue] == YES) {
@@ -278,10 +278,10 @@ NSString *SMLSyntaxDefinitionIncludeInKeywordEndCharacterSet = @"includeInKeywor
 		} else {
 			[self highlightLineRange:NSMakeRange(0, 0)];
 		}
-	} else if ([(NSString *)context isEqualToString:@"MultiLineChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"MultiLineChanged"]) {
 		[self prepareRegularExpressions];
 		[self pageRecolour];
-	} else if ([(NSString *)context isEqualToString:@"syntaxDefinition"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"syntaxDefinition"]) {
 		[self applySyntaxDefinition];
 		[self removeAllColours];
 		[self pageRecolour];

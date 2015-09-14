@@ -119,7 +119,7 @@ static id sharedInstance = nil;
     CFStringRef uuidString = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
     
-    return NSMakeCollectable(uuidString);
+    return (NSString *)uuidString;
 }
 
 /*
@@ -177,7 +177,7 @@ static id sharedInstance = nil;
 		return path;
 	}
 	
-	return  NSMakeCollectable(resolvedPath);
+	return  resolvedPath;
 }
 
 @end

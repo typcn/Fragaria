@@ -112,7 +112,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	[self updateIBeamCursor];	
 	NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:[self frame] options:(NSTrackingMouseEnteredAndExited | NSTrackingActiveWhenFirstResponder) owner:self userInfo:nil];
 	[self addTrackingArea:trackingArea];
-	[trackingArea autorelease];
     
 	NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
 	[defaultsController addObserver:self forKeyPath:@"values.FragariaTextFont" options:NSKeyValueObservingOptionNew context:@"TextFontChanged"];
@@ -188,23 +187,23 @@ Unless required by applicable law or agreed to in writing, software distributed 
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		[self setFont:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsTextFont]]];
 		lineHeight = [[[self textContainer] layoutManager] defaultLineHeightForFont:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsTextFont]]];
 		[[fragaria objectForKey:ro_MGSFOLineNumbers] updateLineNumbersForClipView:[[self enclosingScrollView] contentView] checkWidth:NO recolour:YES];
 		[self setPageGuideValues];
-	} else if ([(NSString *)context isEqualToString:@"TextColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TextColourChanged"]) {
 		[self setTextColor:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsTextColourWell]]];
 		[self setInsertionPointColor:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsTextColourWell]]];
 		[self setPageGuideValues];
 		[self updateIBeamCursor];
-	} else if ([(NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"BackgroundColourChanged"]) {
 		[self setBackgroundColor:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsBackgroundColourWell]]];
-	} else if ([(NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"SmartInsertDeleteChanged"]) {
 		[self setSmartInsertDeleteEnabled:[[SMLDefaults valueForKey:MGSFragariaPrefsSmartInsertDelete] boolValue]];
-	} else if ([(NSString *)context isEqualToString:@"TabWidthChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"TabWidthChanged"]) {
 		[self setTabWidth];
-	} else if ([(NSString *)context isEqualToString:@"PageGuideChanged"]) {
+	} else if ([(__bridge NSString *)context isEqualToString:@"PageGuideChanged"]) {
 		[self setPageGuideValues];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

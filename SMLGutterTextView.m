@@ -39,13 +39,10 @@ Unless required by applicable law or agreed to in writing, software distributed 
 	if ((self = [super initWithFrame:frame])) {
         
         imgBreakpoint0 = [MGSFragaria imageNamed:@"editor-breakpoint-0.png"];
-        [imgBreakpoint0 setFlipped:YES];
         [imgBreakpoint0 retain];
         imgBreakpoint1 = [MGSFragaria imageNamed:@"editor-breakpoint-1.png"];
-        [imgBreakpoint1 setFlipped:YES];
         [imgBreakpoint1 retain];
         imgBreakpoint2 = [MGSFragaria imageNamed:@"editor-breakpoint-2.png"];
-        [imgBreakpoint2 setFlipped:YES];
         [imgBreakpoint2 retain];
 
 		[self setContinuousSpellCheckingEnabled:NO];
@@ -109,7 +106,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"TextFontChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"TextFontChanged"]) {
 		[self setFont:[NSUnarchiver unarchiveObjectWithData:[SMLDefaults valueForKey:MGSFragariaPrefsTextFont]]];
 	} else {
 		[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

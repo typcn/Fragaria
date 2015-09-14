@@ -88,10 +88,10 @@ typedef enum {
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if ([(NSString *)context isEqualToString:@"FontOrColourValueChanged"]) {
+	if ([(__bridge NSString *)context isEqualToString:@"FontOrColourValueChanged"]) {
 		[self resetAttributesAndGlyphs];
 		[[self firstTextView] setNeedsDisplay:YES];
-    } else if ([(NSString *)context isEqualToString:@"InvisibleCharacterValueChanged"]) {
+    } else if ([(__bridge NSString *)context isEqualToString:@"InvisibleCharacterValueChanged"]) {
         [self setShowInvisibleCharacters:[[SMLDefaults valueForKey:MGSFragariaPrefsShowInvisibleCharacters] boolValue]];
         
         if (useGlyphSubstitutionForInvisibleGlyphs) {
@@ -377,16 +377,16 @@ forStartingGlyphAtIndex:(NSUInteger)glyphIndex
         lineRefs = [[NSMutableArray arrayWithCapacity:kNewLineLine+1] retain];
         
         NSAttributedString *attrString = [[[NSAttributedString alloc] initWithString:tabCharacter attributes:defAttributes] autorelease];
-        CTLineRef textLine = CFMakeCollectable(CTLineCreateWithAttributedString((CFAttributedStringRef)attrString));
-        [lineRefs addObject:(id)textLine]; // kTabLine
+        CTLineRef textLine = CTLineCreateWithAttributedString((CFAttributedStringRef)attrString);
+        [lineRefs addObject:(__bridge id)textLine]; // kTabLine
         
         attrString = [[[NSAttributedString alloc] initWithString:spaceCharacter attributes:defAttributes] autorelease];
-        textLine = CFMakeCollectable(CTLineCreateWithAttributedString((CFAttributedStringRef)attrString));
-        [lineRefs addObject:(id)textLine]; // kSpaceLine
+        textLine = CTLineCreateWithAttributedString((CFAttributedStringRef)attrString);
+        [lineRefs addObject:(__bridge id)textLine]; // kSpaceLine
         
         attrString = [[[NSAttributedString alloc] initWithString:newLineCharacter attributes:defAttributes] autorelease];
-        textLine = CFMakeCollectable(CTLineCreateWithAttributedString((CFAttributedStringRef)attrString));
-        [lineRefs addObject:(id)textLine]; // kNewLineLine
+        textLine = CTLineCreateWithAttributedString((CFAttributedStringRef)attrString);
+        [lineRefs addObject:(__bridge id)textLine]; // kNewLineLine
     }
     
     // experimental glyph substitution
